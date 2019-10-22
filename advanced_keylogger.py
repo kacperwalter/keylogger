@@ -1,9 +1,3 @@
-"""
-ok Mac haters
-cant get current used window on mac ->
-i have to code it on a windows computer xD
-"""
-
 from pynput.keyboard import Key, Listener
 import time
 import os
